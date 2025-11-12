@@ -2,12 +2,16 @@
 {
     "layer": "top",
     "position": "top",
-    "height": 30,
     "spacing": 10,
+    "margin-top": 10,
+    "margin-left": 10,
+    "margin-right": 10,
+    "reload_style_on_change": true,
     // Modules
     "modules-left": [
-        "user",
+        "custom/apps",
         "hyprland/workspaces",
+        "tray",
         "hyprland/window",
     ],
     "modules-center": [
@@ -15,22 +19,25 @@
     ],
     "modules-right": [
         // TODO: "backlight", Add backlight on laptop
-        //TODO: "Battery", Add battery on laptop
+        // TODO: "Battery", Add battery on laptop
         "hyprland/language",
         "cpu",
         "memory",
         "network",
         "power-profiles-daemon",
-        "privacy",
         "wireplumber",
     ],
     // Config for modules
+    "custom/apps": {
+        "format": " \udb80\udc3b", // 3x3 grid
+        "on-click": "rofi -show run"
+    },
     "hyprland/workspaces": {
         "format": "{icon}",
         "format-icons": {
-            "active": "\uf111",
-            "default": "\uf192",
-            "empty": "\uf4aa",
+            "active": "\uf111", // Filled circle
+            "default": "\uf192", // Circle with dot
+            "empty": "\uf4aa", // Empty circle
         },
         "all-outputs": true,
         "show-special": true,
@@ -46,5 +53,32 @@
             "weeks-pos": "left",
             // TODO: Add formatting for months, days, weeks, etc. Possibly in styling instead of here
         },
+    },
+    "cpu": {
+        "format": "\uf4bc   {usage}%",
+    },
+    "memory": {
+        "format": "\uf4bc   {used}/{total}GiB",
+    },
+    "network": {
+        "format-ethernet": "Connected  \udb80\ude00", // Ethernet icon
+        "format-wifi": "{essid} {signalStrength}", // Test on laptop for wifi icon
+        "format-disconnected": "Disconnected  \uead0", // diconnected icon
+        "format-alt": "{ifname} / {ipaddr}",
+        "tooltip-format": " {bandwidthDownBytes} \n {bandwidthUpBytes}"
+    },
+    "power-profiles-daemon": {
+        "format": "{icon}",
+        "format-icons": {
+            "performance": "\udb85\udc0b", // lightning icon
+            "balanced": "\uf24e", // Balance scale icon
+            "power-saver": "\udb80\udf2a", // leaf icon
+        },
+    },
+    "wireplumber": {
+        "format": "{volume}% {icon}",
+        "format-icons": [ "\uf026", "\uf027", "\uf028" ], // no, low, high volume icon
+        "format-muted": "OFF \ueee8", // Muted icon
+        "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
     },
 }
