@@ -2,7 +2,7 @@
 {
     "layer": "top",
     "position": "top",
-    "spacing": 10,
+    "spacing": 20,
     "margin-top": 10,
     "margin-left": 10,
     "margin-right": 10,
@@ -19,12 +19,13 @@
     ],
     "modules-right": [
         // TODO: "backlight", Add backlight on laptop
-        // TODO: "Battery", Add battery on laptop
-        "hyprland/language",
+        "mpris",
         "cpu",
         "memory",
         "network",
+        "bluetooth",
         "power-profiles-daemon",
+        "battery", // TODO: Test on laptop
         "wireplumber",
     ],
     // Config for modules
@@ -41,6 +42,8 @@
         },
         "all-outputs": true,
         "show-special": true,
+        "on-scroll-up": "hyprctl dispatch workspace e+1",
+        "on-scroll-down": "hyprctl dispatch workspace e-1",
         // TODO: Add window-rewrite to change icon depending on content
     },
     "hyprland/window": {
@@ -54,6 +57,10 @@
             // TODO: Add formatting for months, days, weeks, etc. Possibly in styling instead of here
         },
     },
+    "mpris": {
+        "format": "{player_icon} {title}",
+        "tooltip-format": "{player} {status}\n{title}\n{album} - {artist}",
+    },
     "cpu": {
         "format": "\uf4bc   {usage}%",
     },
@@ -65,7 +72,16 @@
         "format-wifi": "{essid} {signalStrength}", // Test on laptop for wifi icon
         "format-disconnected": "Disconnected  \uead0", // diconnected icon
         "format-alt": "{ifname} / {ipaddr}",
-        "tooltip-format": " {bandwidthDownBytes} \n {bandwidthUpBytes}"
+        "tooltip-format": " {bandwidthDownBytes}\n {bandwidthUpBytes}"
+    },
+    "bluetooth": {
+        // NOTE: This doesn't work on my desktop eventhough it has bluetooth.
+        // TODO: Test on Laptop
+        "format-disabled": "",
+        "format-off": "\udb80\udcb2",
+        "format-on": "\udb80\udcaf",
+        "format-connected": "\udb80\udcb1",
+        "format-no-controller": "",
     },
     "power-profiles-daemon": {
         "format": "{icon}",
@@ -74,6 +90,10 @@
             "balanced": "\uf24e", // Balance scale icon
             "power-saver": "\udb80\udf2a", // leaf icon
         },
+    },
+    "battery": {
+        "format": "{capacity}% {icon}",
+        "format-icons": [ "\uf244", "\uf243", "\uf242", "\uf241", "\uf240" ],
     },
     "wireplumber": {
         "format": "{volume}% {icon}",
