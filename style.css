@@ -19,12 +19,40 @@ label.module {
     border: solid 0.2rem @accent-color;
     border-radius: 1rem;
     color: @text-color;
-    padding: 0.5rem;
+    padding: 0rem 1rem 0rem 1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
 }
 
 box.module {
     background-color: @bg-color;
     border: solid 0.2rem @accent-color;
     border-radius: 1rem;
+    color: @text-color;
+    padding: 0rem 1rem 0rem 1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.modules-left {
+    margin-left: -1rem;
+}
+.modules-right {
+    margin-right: -1rem;
+}
+
+.power-modules {
+    margin-left: 10rem;
+}
+
+
+tooltip {
+    background-color: @bg-color;
+    border: solid 0.2rem @accent-color;
+    border-radius: 0.5rem;
+}
+
+tooltip label {
+    font-size: 1.2rem;
     color: @text-color;
 }

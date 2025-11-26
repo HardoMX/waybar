@@ -2,7 +2,6 @@
 {
     "layer": "top",
     "position": "top",
-    "spacing": 20,
     "margin-top": 10,
     "margin-left": 10,
     "margin-right": 10,
@@ -24,14 +23,14 @@
         "memory",
         "network",
         "bluetooth",
-        "power-profiles-daemon",
         "battery", // TODO: Test on laptop
         "wireplumber",
+        "group/group-power",
     ],
     // Config for modules
     "custom/apps": {
-        "format": " \udb80\udc3b", // 3x3 grid
-        "on-click": "rofi -show run"
+        "format": "\udb80\udc3b", // 3x3 grid
+        "on-click": "walker"
     },
     "hyprland/workspaces": {
         "format": "{icon}",
@@ -46,6 +45,10 @@
         "on-scroll-down": "hyprctl dispatch workspace e-1",
         // TODO: Add window-rewrite to change icon depending on content
     },
+    "tray": {
+        "icon-size": 20,
+        "spacing": 10,
+    },
     "hyprland/window": {
         "icon": true,
     },
@@ -54,23 +57,27 @@
         "calendar": {
             "mode": "month",
             "weeks-pos": "left",
-            // TODO: Add formatting for months, days, weeks, etc. Possibly in styling instead of here
+            "format": {
+                "weeks": "<span><b>{}</b></span>",
+                "weekdays": "<span><b>{}</b></span>",
+                "today": "<span color='#79d29a'><u><b><i>{}</i></b></u></span>",
+            }
         },
     },
     "mpris": {
-        "format": "{player_icon} {title}",
+        "format": "{title}",
         "tooltip-format": "{player} {status}\n{title}\n{album} - {artist}",
     },
     "cpu": {
-        "format": "\uf4bc   {usage}%",
+        "format": "\uf4bc {usage}%",
     },
     "memory": {
-        "format": "\uf4bc   {used}/{total}GiB",
+        "format": "\uf4bc {used}/{total}GiB",
     },
     "network": {
-        "format-ethernet": "Connected  \udb80\ude00", // Ethernet icon
+        "format-ethernet": "Connected \udb80\ude00", // Ethernet icon
         "format-wifi": "{essid} {signalStrength}", // Test on laptop for wifi icon
-        "format-disconnected": "Disconnected  \uead0", // diconnected icon
+        "format-disconnected": "Disconnected \uead0", // diconnected icon
         "format-alt": "{ifname} / {ipaddr}",
         "tooltip-format": " {bandwidthDownBytes}\n {bandwidthUpBytes}"
     },
@@ -100,5 +107,39 @@
         "format-icons": [ "\uf026", "\uf027", "\uf028" ], // no, low, high volume icon
         "format-muted": "OFF \ueee8", // Muted icon
         "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+    },
+    "group/group-power": {
+        "orientation": "inherit",
+        "drawer": {
+            "transition-duration": 500,
+            "children-class": "power-modules",
+        },
+        "modules": [
+            "custom/power",
+            "custom/reboot",
+            "custom/logout",
+            "custom/lock",
+            "power-profiles-daemon",
+        ]
+    },
+    "custom/lock": {
+        "format": "\udb80\udf3e",
+        "tooltip-format": "Lock screen",
+        "on-click": "hyprlock",
+    },
+    "custom/logout": {
+        "format": "\udb80\udf43",
+        "tooltip-format": "Log out",
+        "on-click": "hypctl dispatch exit",
+    },
+    "custom/power": {
+        "format": "\udb81\udc25",
+        "tooltip-format": "Turn off computer",
+        "on-click": "shutdown now",
+    },
+    "custom/reboot": {
+        "format": "\udb81\udf09",
+        "tooltip-format": "Reboot computer",
+        "on-click": "reboot",
     },
 }
